@@ -1,0 +1,28 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1481765263760.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "44E05351",
+    "lastKnownWriteTime" : 4294967302,
+    "last_content_update" : 1481765263760,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "vdll4wdved",
+        "caption" : "toyData",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=toyData&cache_key=vdll4wdved",
+        "displayedObservations" : "25",
+        "environment" : "",
+        "object" : "toyData",
+        "totalObservations" : "25",
+        "variables" : "6"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

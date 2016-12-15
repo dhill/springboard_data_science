@@ -1,0 +1,28 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1481770714419.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "A95C917D",
+    "lastKnownWriteTime" : 6,
+    "last_content_update" : 1481770714419,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "y2chhde2qo",
+        "caption" : "toyData5",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=toyData5&cache_key=y2chhde2qo",
+        "displayedObservations" : "25",
+        "environment" : "",
+        "object" : "toyData5",
+        "totalObservations" : "25",
+        "variables" : "6"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

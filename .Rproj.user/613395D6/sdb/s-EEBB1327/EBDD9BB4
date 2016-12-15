@@ -1,0 +1,28 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1481767341817.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "EBDD9BB4",
+    "lastKnownWriteTime" : -3458764513549594020,
+    "last_content_update" : 1481767341817,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "mdbzm5riut",
+        "caption" : "toyData3",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=toyData3&cache_key=mdbzm5riut",
+        "displayedObservations" : "25",
+        "environment" : "",
+        "object" : "toyData3",
+        "totalObservations" : "25",
+        "variables" : "9"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}
