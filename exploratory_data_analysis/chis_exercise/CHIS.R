@@ -208,16 +208,16 @@ mosaicGG <- function(data, X, FILL) {
   # plot:
   g <- ggplot(DF_all, aes(ymin = ymin,  ymax = ymax, xmin = xmin, 
                           xmax = xmax, fill = residual)) + 
-  geom_rect(col = "white") +
-  geom_text(aes(x = xtext, label = X),
-            y = 1, size = 3, angle = 90, hjust = 1, show.legend = FALSE) +
-  geom_text(aes(x = max(xmax),  y = ytext, label = FILL),
-            size = 3, hjust = 1, show.legend = FALSE) +
-  scale_fill_gradient2("Residuals") +
-  scale_x_continuous("Individuals", expand = c(0,0)) +
-  scale_y_continuous("Proportion", expand = c(0,0)) +
-  theme_tufte() +
-  theme(legend.position = "bottom")
+    geom_rect(col = "white") +
+    geom_text(aes(x = xtext, label = X),
+              y = 1, size = 3, angle = 90, hjust = 1, show.legend = FALSE) +
+    geom_text(aes(x = max(xmax),  y = ytext, label = FILL),
+              size = 3, hjust = 1, show.legend = FALSE) +
+    scale_fill_gradient2("Residuals") +
+    scale_x_continuous("Individuals", expand = c(0,0)) +
+    scale_y_continuous("Proportion", expand = c(0,0)) +
+    theme_tufte() +
+    theme(legend.position = "bottom")
   print(g)
 }
 
