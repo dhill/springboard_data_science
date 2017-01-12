@@ -150,6 +150,12 @@ plot(energy.model)
 ##   with /metro/ as the only predictor?
 
 # green and toxic have the highest correlation with energy.  
+cor(states.data[c("pop", "area", "density", "metro", "waste", "miles", "toxic", 
+					"green", "house", "senate", "csat", "vsat", "msat", "percent", 
+					"expense", "income", "high", "college", "energy")], 
+				use="complete")
+
+# Plot the data against these variables
 plot(states.data$green, states.data$energy)
 plot(states.data$toxic, states.data$energy)
 
