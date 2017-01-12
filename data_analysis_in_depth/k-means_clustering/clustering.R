@@ -12,7 +12,7 @@ head(wine)
 
 # Exercise 1: Remove the first column from the data and scale
 # it using the scale() function
-
+df <- scale(wine[-1])
 
 # Now we'd like to cluster the data using K-Means. 
 # How do we decide how many clusters to use if you don't know that already?
@@ -22,42 +22,49 @@ head(wine)
 # number of clusters in a K-means solution can be helpful. A bend in the 
 # graph can suggest the appropriate number of clusters. 
 
-wssplot <- function(data, nc=15, seed=1234){
-	              wss <- (nrow(data)-1)*sum(apply(data,2,var))
-               	      for (i in 2:nc){
-		        set.seed(seed)
-	                wss[i] <- sum(kmeans(data, centers=i)$withinss)}
+wssplot <- function(data, nc = 15, seed = 1234){
+	     wss <- (nrow(data) - 1) * sum(apply(data, 2, var))
+       for (i in 2:nc) {
+		     set.seed(seed)
+	       wss[i] <- sum(kmeans(data, centers=i)$withinss)}
 	                
-		      plot(1:nc, wss, type="b", xlab="Number of Clusters",
+		     plot(1:nc, wss, type="b", xlab="Number of Clusters",
 	                        ylab="Within groups sum of squares")
-	   }
+	     }
 
 wssplot(df)
 
 # Exercise 2:
 #   * How many clusters does this method suggest?
+#       The bend in the graph suggests 3 clusters, which makes sense since there
+#       are three wine types.
+#
 #   * Why does this method work? What's the intuition behind it?
+#       It calculates the lowest number of clusters that fits the data (low sums of
+#       squares.
+#
 #   * Look at the code for wssplot() and figure out how it works
+#       It calculates the sum of square results for a range of clusters, from 2 to 15,
+#       and graphs them.
 
 # Method 2: Use the NbClust library, which runs many experiments
 # and gives a distribution of potential number of clusters.
 
 library(NbClust)
 set.seed(1234)
-nc <- NbClust(df, min.nc=2, max.nc=15, method="kmeans")
+nc <- NbClust(df, min.nc = 2, max.nc = 15, method = "kmeans")
 barplot(table(nc$Best.n[1,]),
-	          xlab="Numer of Clusters", ylab="Number of Criteria",
-		            main="Number of Clusters Chosen by 26 Criteria")
-
+	          xlab = "Number of Clusters", ylab = "Number of Criteria",
+		            main = "Number of Clusters Chosen by 26 Criteria")
 
 # Exercise 3: How many clusters does this method suggest?
-
+#   The NbClust method suggests 3 clusters, selected by 15 criteria.  This makes
+#   sense since there are three wine types.
 
 # Exercise 4: Once you've picked the number of clusters, run k-means 
 # using this number of clusters. Output the result of calling kmeans()
-# into a variable fit.km
-
-# fit.km <- kmeans( ... )
+# into a variable fit.km.  Start with 25 configurations.
+fit.km <- kmeans(df, centers = 3, nstart = 25)
 
 # Now we want to evaluate how well this clustering does.
 
@@ -65,9 +72,21 @@ barplot(table(nc$Best.n[1,]),
 # compares to the actual wine types in wine$Type. Would you consider this a good
 # clustering?
 
+# Get the distribution of wine types
+table(wine$Type)
+
+# Get the structure of fit.km clustering info
+str(fit.km)
+
+# Get the size of each cluster
+fit.km$size
+
+# See how the clustering matches the different wine types
+# agreement = 0.897495, which is strong, indicating good clustering.
+crossTabulation <- table(wine$Type, fit.km$cluster)
+agreement <- randIndex(table(wine$Type, fit.km$cluster))
 
 # Exercise 6:
-# * Visualize these clusters using  function clusplot() from the cluster library
+# * Visualize these clusters using function clusplot() from the cluster library
 # * Would you consider this a good clustering?
-
-#clusplot( ... )
+clusplot(df, fit.km$cluster)
