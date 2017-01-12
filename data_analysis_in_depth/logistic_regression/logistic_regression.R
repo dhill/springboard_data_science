@@ -100,8 +100,63 @@ plot(allEffects(hyp.out))
 
 ##   1. Use glm to conduct a logistic regression to predict ever worked
 ##      (everwrk) using age (age_p) and marital status (r_maritl).
+str(NH11)
+
+# everwrk has several potential values. Get entire list of values
+levels(NH11$everwrk)
+
+# There are several NA values in everwrk, which is categorical.  Trying to
+# use age and marital status to predict an NA, "Refused", "Not ascertained", and
+# "Don't know" values doesn't make sense, so we just focus on the Yes/No values.
+NH11YesNo <- subset(NH11, NH11$everwrk == "1 Yes" | NH11$everwrk == "2 No")
+
+# Create a new binary variable for whether the person worked
+NH11YesNo$worked <- NH11YesNo$everwrk == "1 Yes"
+
+# Build training and test sets
+library(caTools)
+set.seed(100)
+split = sample.split(NH11YesNo$worked, SplitRatio = 0.65)
+NH11Train = subset(NH11YesNo, split == TRUE)
+NH11Test = subset(NH11YesNo, split == FALSE)
+
+# Build the model
+workedLog <- glm(worked ~ age_p + r_maritl, data=NH11Train, family=binomial)
+summary(workedLog)
+
+# Determine baseline model accuracy on test data
+baselineTrain <- nrow(subset(NH11Train, worked == TRUE)) / nrow(NH11Train)
+
+# Use the model to predict on the training data
+predictTrain <- predict(workedLog, type="response")
+
+# Analyze results of prediction
+library(ROCR)
+ROCRPredictTest <- prediction(predictTest, NH11Test$worked)
+ROCRPerformanceTest <- performance(ROCRPredictTest, "tpr", "fpr")
+plot(ROCRPerformanceTest, colorize=TRUE, print.cutoffs.at = seq(0, 1, 0.01), 
+     text.adj = c(-0.2, 1.7))
+
+# Use the model to predict on the test data
+predictTest <- predict(workedLog, type="response", newdata = NH11Test)
+
+# Determine baseline model accuracy on test data
+baselineTest <- nrow(subset(NH11Test, worked == TRUE)) / nrow(NH11Test)
+
+predictTest <- predict(workedLog, type="response", newdata = NH11Test)
+
+# Analyze results of prediction
+library(ROCR)
+ROCRPredictTest <- prediction(predictTest, NH11Test$worked)
+testAUC <- as.numeric(performance(ROCRPredictTest, "auc")@y.values)
+
 ##   2. Predict the probability of working for each level of marital
 ##      status.
+
+# Use effects package to calculate working probability for each marital 
+# status level and calculate probability.
+library(effects)
+plot(effect("r_maritl", workedLog, xlevels=NH11Test), multiline=TRUE)
 
 ##   Note that the data is not perfectly clean and ready to be modeled. You
 ##   will need to clean up at least some of the variables before fitting
