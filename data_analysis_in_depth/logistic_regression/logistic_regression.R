@@ -146,7 +146,6 @@ baselineTest <- nrow(subset(NH11Test, worked == TRUE)) / nrow(NH11Test)
 predictTest <- predict(workedLog, type="response", newdata = NH11Test)
 
 # Analyze results of prediction
-library(ROCR)
 ROCRPredictTest <- prediction(predictTest, NH11Test$worked)
 testAUC <- as.numeric(performance(ROCRPredictTest, "auc")@y.values)
 
